@@ -22,7 +22,7 @@ body {
     font-size: 1.2em;
 }
 
-.main_content a:link, a:visited{
+.main_content a:link, a:visited {
     text-decoration: none;
     color: #43414e;
 }
