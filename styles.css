@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url("img/annap.JPG");
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+
+.main_content {
+    color:#43414e;
+    background-color: rgba(255,255,255,0.85);
+    font-family: 'Josefin Sans', 'Franklin Gothic Medium', 'Arial Narrow', sans-serif; 
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    padding: 2em; 
+}
+
+.main_content h4 {
+    font-size: 1.2em;
+}
