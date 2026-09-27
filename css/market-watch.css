@@ -1,0 +1,198 @@
+:root {
+  --canvas: #f4f7f6;
+  --ink: #132c3d;
+  --muted: #55707a;
+  --line: #bdd0d2;
+  --accent: #c44d2b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  color: var(--ink);
+  background-color: var(--canvas);
+  background-image: linear-gradient(90deg, rgba(19, 44, 61, 0.035) 1px, transparent 1px), linear-gradient(rgba(19, 44, 61, 0.035) 1px, transparent 1px);
+  background-size: 28px 28px;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+}
+
+#content,
+body > footer {
+  display: none;
+}
+
+.page-shell {
+  width: min(100% - 32px, 760px);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 76px 0 40px;
+}
+
+.masthead {
+  position: relative;
+  padding: 0 0 28px 28px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.masthead::before {
+  position: absolute;
+  top: 4px;
+  bottom: 34px;
+  left: 0;
+  width: 8px;
+  content: "";
+  background: var(--accent);
+}
+
+.eyebrow,
+.market-watch-footer p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+.company {
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+}
+
+h1 {
+  margin: 7px 0 0;
+  font-size: clamp(2.35rem, 8vw, 4.2rem);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 0.95;
+}
+
+.results {
+  padding: 42px 0 48px;
+}
+
+h2 {
+  margin-bottom: 22px;
+  font-size: 1.14rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.signal-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: signal;
+}
+
+.signal-list li {
+  position: relative;
+  min-height: 112px;
+  padding: 19px 20px 18px 64px;
+  border-top: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.signal-list li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.signal-list li::before {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  color: var(--accent);
+  content: counter(signal, decimal-leading-zero);
+  counter-increment: signal;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.company {
+  margin-bottom: 6px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.symbol {
+  color: var(--muted);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.75em;
+  font-weight: 600;
+}
+
+.event {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.empty-state {
+  margin: 0;
+  padding: 28px 0;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-size: 1.25rem;
+}
+
+.market-watch-footer {
+  display: grid;
+  gap: 9px;
+  padding-top: 22px;
+  border-top: 2px solid var(--ink);
+}
+
+.market-watch-footer p:last-child {
+  color: var(--accent);
+}
+
+@media (max-width: 560px) {
+  .page-shell {
+    width: min(100% - 24px, 760px);
+    padding-top: 48px;
+  }
+
+  .masthead {
+    padding-left: 22px;
+  }
+
+  .masthead::before {
+    width: 6px;
+  }
+
+  .results {
+    padding: 32px 0 38px;
+  }
+
+  .signal-list li {
+    min-height: 104px;
+    padding: 17px 16px 17px 54px;
+  }
+
+  .signal-list li::before {
+    left: 16px;
+  }
+
+  .company {
+    font-size: 1.18rem;
+  }
+}

@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="en"><head>
 	<meta name="generator" content="Hugo 0.103.1" />
-    <title>Yuan Yin</title>
+    <title>Market Watch</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Yuan Yin Website" />
+    <meta name="description" content="A daily market research brief." />
 
     
     
     
-    <link rel="stylesheet" href="./css/theme.min.css">
+    <link rel="stylesheet" href="css/market-watch.css">
 
     
     
@@ -18,6 +18,23 @@
     
 </head>
 <body>
+        <main class="page-shell">
+            <header class="masthead">
+                <p class="eyebrow">Daily research brief</p>
+                <h1>Market Watch</h1>
+            </header>
+
+            <section class="results" aria-labelledby="results-heading">
+                <h2 id="results-heading">Current Research Results</h2>
+                <ol id="signal-list" class="signal-list" hidden></ol>
+                <p id="empty-state" class="empty-state">No current research results.</p>
+            </section>
+
+            <footer class="market-watch-footer">
+                <p id="refresh-time" aria-live="polite">No refresh has completed.</p>
+                <p>Research results, not investment recommendations.</p>
+            </footer>
+        </main>
         <div id="content" class="mx-auto"><header class="container mt-sm-5 mt-4 mb-4 mt-xs-1">
     <div class="row">
         <div class="col-sm-4 col-12 text-sm-right text-center pt-sm-4">
@@ -101,5 +118,78 @@
         and <a href="https://github.com/austingebauer/devise" target="_blank">Devise</a>
     </small>
 </footer>
+<script>
+    const signalList = document.querySelector("#signal-list");
+    const emptyState = document.querySelector("#empty-state");
+    const refreshTime = document.querySelector("#refresh-time");
+
+    function formatRefreshTime(value) {
+        if (!value) {
+            return "No refresh has completed.";
+        }
+        const date = new Date(value);
+        if (Number.isNaN(date.valueOf())) {
+            return "Refresh time unavailable.";
+        }
+        return `Refreshed ${new Intl.DateTimeFormat("en-US", {
+            dateStyle: "medium",
+            timeStyle: "short",
+            timeZone: "America/New_York",
+            timeZoneName: "short",
+        }).format(date)}`;
+    }
+
+    function addSignal(signal) {
+        if (!signal || typeof signal.company !== "string" || typeof signal.event !== "string") {
+            return false;
+        }
+        const company = signal.company.trim();
+        const event = signal.event.trim();
+        if (!company || !event) {
+            return false;
+        }
+
+        const item = document.createElement("li");
+        const companyLine = document.createElement("p");
+        const eventLine = document.createElement("p");
+        companyLine.className = "company";
+        eventLine.className = "event";
+        companyLine.textContent = company;
+        if (typeof signal.symbol === "string" && signal.symbol.trim()) {
+            const symbol = document.createElement("span");
+            symbol.className = "symbol";
+            symbol.textContent = `(${signal.symbol.trim()})`;
+            companyLine.append(" ", symbol);
+        }
+        eventLine.textContent = event;
+        item.append(companyLine, eventLine);
+        signalList.append(item);
+        return true;
+    }
+
+    async function loadMarketWatch() {
+        try {
+            const response = await fetch("data/market-watch.json", { cache: "no-store" });
+            if (!response.ok) {
+                throw new Error("Market Watch data request failed.");
+            }
+            const brief = await response.json();
+            const signals = Array.isArray(brief.signals) ? brief.signals.slice(0, 5) : [];
+            const renderedCount = signals.reduce(
+                (count, signal) => count + Number(addSignal(signal)),
+                0,
+            );
+            signalList.hidden = renderedCount === 0;
+            emptyState.hidden = renderedCount > 0;
+            refreshTime.textContent = formatRefreshTime(brief.generated_at);
+        } catch {
+            emptyState.textContent = "Current research results are unavailable.";
+            signalList.hidden = true;
+            refreshTime.textContent = "Refresh time unavailable.";
+        }
+    }
+
+    loadMarketWatch();
+</script>
 </body>
 </html>
