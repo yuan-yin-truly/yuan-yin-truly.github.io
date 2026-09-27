@@ -59,13 +59,11 @@ body > footer {
 }
 
 h1,
-h2,
 p {
   margin-top: 0;
 }
 
 h1,
-h2,
 .company {
   font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
 }
@@ -82,44 +80,20 @@ h1 {
   padding: 42px 0 48px;
 }
 
-h2 {
-  margin-bottom: 22px;
-  font-size: 1.14rem;
-  font-weight: 600;
-  letter-spacing: 0;
-}
-
 .signal-list {
   display: grid;
-  gap: 0;
+  gap: 12px;
   margin: 0;
-  padding: 0;
-  list-style: none;
-  counter-reset: signal;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.signal-list[hidden] {
+  display: none;
 }
 
 .signal-list li {
-  position: relative;
-  min-height: 112px;
-  padding: 19px 20px 18px 64px;
-  border-top: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.68);
-}
-
-.signal-list li:last-child {
-  border-bottom: 1px solid var(--line);
-}
-
-.signal-list li::before {
-  position: absolute;
-  top: 18px;
-  left: 20px;
-  color: var(--accent);
-  content: counter(signal, decimal-leading-zero);
-  counter-increment: signal;
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  padding-left: 4px;
 }
 
 .company {
@@ -146,12 +120,11 @@ h2 {
 
 .empty-state {
   margin: 0;
-  padding: 28px 0;
+  padding: 42px 0;
   color: var(--muted);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
   font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   font-size: 1.25rem;
+  text-align: center;
 }
 
 .market-watch-footer {
@@ -159,10 +132,6 @@ h2 {
   gap: 9px;
   padding-top: 22px;
   border-top: 2px solid var(--ink);
-}
-
-.market-watch-footer p:last-child {
-  color: var(--accent);
 }
 
 @media (max-width: 560px) {
@@ -181,15 +150,6 @@ h2 {
 
   .results {
     padding: 32px 0 38px;
-  }
-
-  .signal-list li {
-    min-height: 104px;
-    padding: 17px 16px 17px 54px;
-  }
-
-  .signal-list li::before {
-    left: 16px;
   }
 
   .company {
