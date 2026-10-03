@@ -2,6 +2,7 @@
   --canvas: #f4f7f6;
   --ink: #132c3d;
   --muted: #55707a;
+  --body: #3a5360;
   --line: #bdd0d2;
   --accent: #c44d2b;
 }
@@ -64,7 +65,8 @@ p {
 }
 
 h1,
-.company {
+.signal-rank,
+.signal-title {
   font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
 }
 
@@ -77,15 +79,13 @@ h1 {
 }
 
 .results {
-  padding: 42px 0 48px;
+  padding: 36px 0 48px;
 }
 
 .signal-list {
-  display: grid;
-  gap: 12px;
   margin: 0;
-  padding-left: 1.25rem;
-  list-style: disc;
+  padding: 0;
+  list-style: none;
 }
 
 .signal-list[hidden] {
@@ -93,29 +93,49 @@ h1 {
 }
 
 .signal-list li {
-  padding-left: 4px;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  padding: 28px 0;
 }
 
-.company {
-  margin-bottom: 6px;
-  font-size: 1.3rem;
-  font-weight: 600;
+.signal-list li:first-child {
+  padding-top: 0;
+}
+
+.signal-list li:last-child {
+  padding-bottom: 0;
+}
+
+.signal-list li + li {
+  border-top: 1px solid var(--line);
+}
+
+.signal-rank,
+.signal-title {
+  font-size: clamp(1.35rem, 3.6vw, 1.65rem);
   line-height: 1.2;
 }
 
-.symbol {
-  color: var(--muted);
-  font-family: "Avenir Next", "Segoe UI", sans-serif;
-  font-size: 0.75em;
+.signal-rank {
+  color: var(--accent);
+  font-variant-numeric: lining-nums;
   font-weight: 600;
 }
 
-.event {
-  max-width: 62ch;
+.signal-title {
+  margin-bottom: 10px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+.signal-thesis {
+  max-width: 60ch;
   margin: 0;
-  color: var(--muted);
-  font-size: 0.98rem;
-  line-height: 1.5;
+  color: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  text-wrap: pretty;
 }
 
 .empty-state {
@@ -152,7 +172,12 @@ h1 {
     padding: 32px 0 38px;
   }
 
-  .company {
-    font-size: 1.18rem;
+  .signal-list li {
+    grid-template-columns: 22px minmax(0, 1fr);
+    padding: 24px 0;
+  }
+
+  .signal-thesis {
+    font-size: 1rem;
   }
 }

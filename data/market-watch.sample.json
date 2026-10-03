@@ -1,0 +1,20 @@
+{
+  "generated_at": "2025-01-10T16:00:00-05:00",
+  "signals": [
+    {
+      "rank": 1,
+      "title": "OpenAI slashes GPT API pricing",
+      "thesis": "OpenAI cut GPT API prices roughly 10x, and attention is far above the earlier pricing hints (1200 HN points vs 85). A same-day YouTube explainer at 310k views in 5 hours shows the repricing is spreading beyond developers."
+    },
+    {
+      "rank": 2,
+      "title": "Chipmakers face tighter export scrutiny",
+      "thesis": "Multiple sources report new review of advanced chip shipments, and discussion volume is well above last week's baseline. Suppliers with heavy overseas revenue are the most exposed if the rules are formalized."
+    },
+    {
+      "rank": 3,
+      "title": "Regional banks flag rising deposit costs",
+      "thesis": "Two regional lenders warned that deposit costs are climbing faster than expected. If peers confirm the trend, net interest margins could come under pressure next quarter."
+    }
+  ]
+}
