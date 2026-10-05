@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="en"><head>
 	<meta name="generator" content="Hugo 0.103.1" />
-    <title>Market Watch</title>
+    <title>Yuan Yin</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="A daily market research brief." />
+    <meta name="description" content="Yuan Yin Website" />
 
     
     
     
-    <link rel="stylesheet" href="css/market-watch.css">
+    <link rel="stylesheet" href="./css/theme.min.css">
 
     
     
@@ -18,21 +18,6 @@
     
 </head>
 <body>
-        <main class="page-shell">
-            <header class="masthead">
-                <p class="eyebrow">Daily research brief</p>
-                <h1>Market Watch</h1>
-            </header>
-
-            <section class="results" aria-label="Current research results">
-                <ul id="signal-list" class="signal-list" hidden></ul>
-                <p id="empty-state" class="empty-state">No current research results.</p>
-            </section>
-
-            <footer class="market-watch-footer">
-                <p id="refresh-time" aria-live="polite">Last updated: not yet.</p>
-            </footer>
-        </main>
         <div id="content" class="mx-auto"><header class="container mt-sm-5 mt-4 mb-4 mt-xs-1">
     <div class="row">
         <div class="col-sm-4 col-12 text-sm-right text-center pt-sm-4">
@@ -116,87 +101,5 @@
         and <a href="https://github.com/austingebauer/devise" target="_blank">Devise</a>
     </small>
 </footer>
-<script>
-    const signalList = document.querySelector("#signal-list");
-    const emptyState = document.querySelector("#empty-state");
-    const refreshTime = document.querySelector("#refresh-time");
-
-    function formatRefreshTime(value) {
-        if (!value) {
-            return "Last updated: not yet.";
-        }
-        const date = new Date(value);
-        if (Number.isNaN(date.valueOf())) {
-            return "Last updated: unavailable.";
-        }
-        return `Last updated: ${new Intl.DateTimeFormat("en-US", {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-            timeZone: "America/New_York",
-            timeZoneName: "short",
-        }).format(date)}`;
-    }
-
-    function addSignal(signal) {
-        if (
-            !signal
-            || !Number.isInteger(signal.rank)
-            || signal.rank < 1
-            || typeof signal.title !== "string"
-            || typeof signal.thesis !== "string"
-        ) {
-            return false;
-        }
-        const title = signal.title.trim();
-        const thesis = signal.thesis.trim();
-        if (!title || !thesis) {
-            return false;
-        }
-
-        const item = document.createElement("li");
-        const rankMark = document.createElement("span");
-        const body = document.createElement("div");
-        const titleLine = document.createElement("p");
-        const thesisLine = document.createElement("p");
-        rankMark.className = "signal-rank";
-        body.className = "signal-body";
-        titleLine.className = "signal-title";
-        thesisLine.className = "signal-thesis";
-        rankMark.textContent = signal.rank;
-        titleLine.textContent = title;
-        thesisLine.textContent = thesis;
-        body.append(titleLine, thesisLine);
-        item.append(rankMark, body);
-        signalList.append(item);
-        return true;
-    }
-
-    async function loadMarketWatch() {
-        try {
-            const response = await fetch("data/market-watch.json", { cache: "no-store" });
-            if (!response.ok) {
-                throw new Error("Market Watch data request failed.");
-            }
-            const brief = await response.json();
-            const signals = Array.isArray(brief.signals) ? brief.signals.slice(0, 5) : [];
-            const renderedCount = signals.reduce(
-                (count, signal) => count + Number(addSignal(signal)),
-                0,
-            );
-            signalList.hidden = renderedCount === 0;
-            emptyState.hidden = renderedCount > 0;
-            refreshTime.textContent = formatRefreshTime(brief.generated_at);
-        } catch {
-            emptyState.textContent = "Current research results are unavailable.";
-            signalList.hidden = true;
-            refreshTime.textContent = "Last updated: unavailable.";
-        }
-    }
-
-    loadMarketWatch();
-</script>
 </body>
 </html>
